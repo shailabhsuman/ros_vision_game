@@ -18,6 +18,7 @@ def talker():
 	colorLower = (20, 100, 100)
 	colorUpper = (64, 255, 255)
 	goal_pose = Pose()
+	Range = 12.0
 
 	camera = cv2.VideoCapture(0)
 	if not camera.isOpened():
@@ -41,9 +42,9 @@ def talker():
 			Moment = cv2.moments(c)
 			center = (int(Moment["m10"]/ Moment["m00"]),int(Moment["m01"]/Moment["m00"]))
 			#normalizing value for turtlesim		
-			normalized_center = (int(Moment["m10"]/(60 * Moment["m00"])),int(Moment["m01"]/(45 * Moment["m00"])))
-			goal_pose.x = 10 - normalized_center[0]
-			goal_pose.y = 10 - normalized_center[1]
+			normalized_center = (((Moment["m10"]*Range)/(640 * Moment["m00"])),((Moment["m01"]*Range)/(480 * Moment["m00"])))
+			goal_pose.x = Range - normalized_center[0]
+			goal_pose.y = Range - normalized_center[1]
 			rospy.loginfo("Marker detected - keep smiling")
 			pub.publish(goal_pose)
 			#print(goal_pose)
