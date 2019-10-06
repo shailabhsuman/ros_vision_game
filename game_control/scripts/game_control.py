@@ -23,6 +23,7 @@ class GameControl:
         self.pose1 = Pose()
 	self.pose2 = Pose()
         self.rate = rospy.Rate(1)
+	self.score = 0.0
 
     def update_pose1(self, data):
         self.pose1 = data
@@ -46,8 +47,13 @@ class GameControl:
 
         	g_pose.x = self.pose2.x
 		g_pose.y = self.pose2.y
-
-        	self.gamecontrol_publisher.publish(self.euclidean_distance(g_pose))
+	
+		if self.euclidean_distance(g_pose) > 0.5:
+			self.score = self.score + 1
+		else:
+			self.score = 0.0
+			
+        	self.gamecontrol_publisher.publish(self.score)
 		self.rate.sleep()
 
         rospy.spin()
