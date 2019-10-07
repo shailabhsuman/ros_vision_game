@@ -6,7 +6,7 @@ int main(int argc, char** argv)
 {
   ros::init(argc,argv,"goto_goals_node");
   ros::NodeHandle nh;
-  ros::Duration(5).sleep();
+  ros::Duration(2).sleep();
 
   goto_goals::gotoGoals hello;
   hello.velocity_calc();

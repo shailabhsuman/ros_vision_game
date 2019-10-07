@@ -1,0 +1,14 @@
+<launch>
+<node pkg="vision_pack" type="object_tracking.py" name="object_tracking" output="screen">
+</node>
+<node pkg="goto_goals" type="goto_goals" name="goto_goals" output="screen">
+</node>
+<node pkg="game_control" type="game_control.py" name="game_control" output="screen">
+</node>
+<node pkg="robot" type="game_gui.py" name="game_gui" output="screen">
+</node>
+
+
+
+
+</launch>

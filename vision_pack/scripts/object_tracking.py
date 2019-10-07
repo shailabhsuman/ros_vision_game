@@ -64,6 +64,7 @@ def talker():
 			cv2.line(frame, pts[i - 1], pts[i], (0, 0, 255), thickness)
 		cv2.imshow("Frame", cv2.flip(frame,1))
 		if cv2.waitKey(1) & 0xFF==ord('q'):
+			camera.release()
 			break
 
 	rospy.spin()
@@ -72,6 +73,5 @@ if __name__ == '__main__':
     try:
         talker()
     except rospy.ROSInterruptException:
-	video_capture.release()
 	cv2.destroyAllWindows()
 	pass
