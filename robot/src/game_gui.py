@@ -6,6 +6,8 @@ from std_msgs.msg import String, Float64
 from PyQt4 import QtGui
 from PyQt4.QtGui import QLabel, QVBoxLayout, QHBoxLayout, QSlider, QPushButton, QProgressBar
 from PyQt4.QtCore import Qt
+from std_srvs.srv import Empty as EmptyServiceCall
+import signal
 
 class PyGui(QtGui.QWidget):
 
@@ -20,44 +22,36 @@ class PyGui(QtGui.QWidget):
 		self.distance = 0.0
 	        my_layout = QHBoxLayout()
         	my_btn = QPushButton()
-        	my_btn.setText("Publisher")
+        	my_btn.setText("Clear")
         	my_btn.setFixedWidth(130)
-        	my_btn.clicked.connect(self.publish_topic)
+        	my_btn.clicked.connect(self.clear_area)
         	my_layout.addWidget(my_btn)
         	my_layout.addSpacing(50)
         	self.my_label = QLabel()
         	self.my_label.setFixedWidth(140)
-        	self.my_label.setText("value: " + str(0))
+        	self.my_label.setText("Score: " + str(0))
         	self.my_label.setEnabled(False)
         	my_layout.addWidget(self.my_label)
-        	my_slider = QSlider()
-        	my_slider.setMinimum(0)
-        	my_slider.setMaximum(99)
-        	my_slider.setOrientation(Qt.Horizontal)
-        	my_slider.valueChanged.connect(self.changeValue)
-		#self.my_progress = QProgressBar()
-
         	my_vlay = QVBoxLayout()
-        	#my_vlay.addWidget(self.my_progress)
         	layout = QVBoxLayout()
         	layout.addLayout(my_layout)
         	layout.addLayout(my_vlay)
         	self.setLayout(layout)
-        	# self.show()
 
-	def publish_topic(self):
-	        self.pub.publish(str(self.current_value))
+	def clear_area(self):
+		rospy.wait_for_service('clear')
+		clear_bg = rospy.ServiceProxy('clear', EmptyServiceCall)
 
-	def changeValue(self, value):
-        	self.current_value = value
 
 	def update_game(self, data):
-	        self.my_label.setText(str(data))
 		self.distance = data
+		self.my_label.setText("Score: " + str(self.distance.data))
  
 
 if __name__ == "__main__":
-    app=QtGui.QApplication(sys.argv)
-    pyShow = PyGui()
-    pyShow.show()
-    sys.exit(app.exec_())
+	signal.signal(signal.SIGINT, signal.SIG_DFL)
+	app=QtGui.QApplication(sys.argv)
+	pyShow = PyGui()
+	pyShow.show()
+	sys.exit(app.exec_())
+

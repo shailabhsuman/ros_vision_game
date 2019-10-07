@@ -8,7 +8,4 @@
 <node pkg="robot" type="game_gui.py" name="game_gui" output="screen">
 </node>
 
-
-
-
 </launch>

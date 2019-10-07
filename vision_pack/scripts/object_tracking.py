@@ -46,7 +46,7 @@ def talker():
 			normalized_center = (((Moment["m10"]*Range)/(640 * Moment["m00"])),((Moment["m01"]*Range)/(480 * Moment["m00"])))
 			goal_pose.x = Range - normalized_center[0]
 			goal_pose.y = Range - normalized_center[1]
-			rospy.loginfo("Marker detected - keep smiling")
+			#rospy.loginfo("Marker detected - keep smiling")
 			pub.publish(goal_pose)
 			#print(goal_pose)
 			rate.sleep()
@@ -54,7 +54,7 @@ def talker():
 				cv2.circle(frame, (int(x), int(y)), int(radius),(0, 255, 255), 2)
 				cv2.circle(frame, center, 5, (0, 0, 255), -1)
 		else:
-			rospy.loginfo("Marker is out of bound")
+			#rospy.loginfo("Marker is out of bound")
 			pub.publish(goal_pose)
 		pts.appendleft(center)
 		for i in xrange(1, len(pts)):

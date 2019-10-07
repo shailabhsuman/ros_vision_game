@@ -53,7 +53,7 @@ namespace goto_goals
       angy = goal_pose.y - current_pose.y;
       cmd_vel.linear.x = kp_linear * mag;
       cmd_vel.angular.z = kp_angular * (atan2(angy,angx) - current_pose.theta);
-      ROS_INFO("%f %f",current_pose.x, goal_pose.x);
+      //ROS_INFO("%f %f",current_pose.x, goal_pose.x);
       vel_publisher.publish(cmd_vel);
       loop_rate.sleep();
       ros::spinOnce();
