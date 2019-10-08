@@ -51,7 +51,8 @@ class GameControl:
 		if self.euclidean_distance(g_pose) > 0.5:
 			self.score = self.score + 1
 		else:
-			self.score = 0.0
+			if self.score < 10:
+				self.score = 0.0
 			
         	self.gamecontrol_publisher.publish(self.score)
 		self.rate.sleep()
