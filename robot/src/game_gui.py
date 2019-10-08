@@ -14,19 +14,19 @@ class PyGui(QtGui.QWidget):
 	def __init__(self):
 	        super(PyGui, self).__init__()
 	        self.setObjectName('PyGui')
-	        self.pub = rospy.Publisher("Score", String, queue_size=10)
+	        self.pub = rospy.Publisher("/score", Float64, queue_size=10)
 		self.game_subscriber = rospy.Subscriber('/gamecontrol',
 							Float64, self.update_game)
 	        rospy.init_node('pyqt_gui')
 	        self.current_value = 0
 		self.distance = 0.0
 	        my_layout = QHBoxLayout()
-        	my_btn = QPushButton()
-        	my_btn.setText("Clear")
-        	my_btn.setFixedWidth(130)
-        	my_btn.clicked.connect(self.clear_area)
-        	my_layout.addWidget(my_btn)
-        	my_layout.addSpacing(50)
+        	#my_btn = QPushButton()
+        	#my_btn.setText("Reset Score")
+        	#my_btn.setFixedWidth(130)
+        	#my_btn.clicked.connect(self.clear_area)
+        	#my_layout.addWidget(my_btn)
+        	#my_layout.addSpacing(50)
         	self.my_label = QLabel()
         	self.my_label.setFixedWidth(140)
         	self.my_label.setText("Score: " + str(0))
@@ -38,9 +38,8 @@ class PyGui(QtGui.QWidget):
         	layout.addLayout(my_vlay)
         	self.setLayout(layout)
 
-	def clear_area(self):
-		rospy.wait_for_service('clear')
-		clear_bg = rospy.ServiceProxy('clear', EmptyServiceCall)
+	#def clear_area(self):
+	#	self.distance.data = 0.0
 
 
 	def update_game(self, data):
