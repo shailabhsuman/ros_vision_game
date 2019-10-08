@@ -1,10 +1,10 @@
 # auto1
 Single player game using ROS, OpenCV and turtlesim
 
-#Theme of the game 
+# Theme of the game 
 There are two turtles - husband and wife in the scene. Wife turtle needs some me time while husband turtle will follow her. Wife turtle can be controlled by you using camera. Make her swim away from husband. The longer she is alone the more points you have. I scored 67, how much can you? 
 
-#What you need
+# What you need
 All you need to play this game is a green round object. 
 
 # Install turtlebot
