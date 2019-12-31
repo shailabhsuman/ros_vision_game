@@ -1,4 +1,3 @@
-# auto1
 Single player game using ROS, OpenCV and turtlesim
 
 # Theme of the game 
